@@ -38,17 +38,32 @@ jobs:
         run: mvn clean test
 
 
-      - name: Generate Allure results
-        run: mvn allure:report
 
-      - name: Upload Allure Results
-        uses: actions/upload-artifact@v4
-        with:
-          name: allure-results
-          path: target/allure-results
+      - name: Generate Report
+        run: |
+          mkdir -p allure-report  
+          allure generate --clean allure-results -o allure-report
 
-      - name: Upload Allure Report
-        uses: actions/upload-artifact@v4
+      - name: Upload Allure Report as artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          name: allure-report
-          path: target/allure-report
+          path: './allure-report'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+#      - name: Generate Allure results
+#        run: mvn allure:report
+#
+#      - name: Upload Allure Results
+#        uses: actions/upload-artifact@v4
+#        with:
+#          name: allure-results
+#          path: target/allure-results
+#
+#      - name: Upload Allure Report
+#        uses: actions/upload-artifact@v4
+#        with:
+#          name: allure-report
+#          path: target/allure-report
