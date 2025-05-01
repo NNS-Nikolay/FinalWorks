@@ -38,8 +38,11 @@ jobs:
         run: mvn clean test
 
 
-      - name: Публикация отчета Allure
-        run: |
-          mkdir -p allure-results
-          cp -r target/allure-results/* allure-results/
-          allure serve allure-results
+      - name: Generate Allure results
+        run: mvn allure:report
+
+      - name: Upload Allure results
+        uses: actions/upload-artifact@v3
+        with:
+          name: allure-results
+          path: target/allure-results
