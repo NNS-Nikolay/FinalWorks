@@ -40,10 +40,7 @@ jobs:
 
       - name: Install Allure CLI
         run: |
-          ALLURE_VERSION=2.13.9
-          wget -q "https://github.com/allure-framework/allure2/releases/download/${ALLURE_VERSION}/allure-${ALLURE_VERSION}-zip.zip"
-          unzip -q "allure-${ALLURE_VERSION}-zip.zip" -d /opt/
-          ln -s /opt/allure-${ALLURE_VERSION}/bin/allure /usr/local/bin/allure
+          $ brew install allure
 
       - name: Generate Report
         run: |
