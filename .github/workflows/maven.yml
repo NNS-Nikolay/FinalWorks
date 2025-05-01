@@ -41,8 +41,14 @@ jobs:
       - name: Generate Allure results
         run: mvn allure:report
 
-      - name: Upload Allure results
+      - name: Upload Allure Results
         uses: actions/upload-artifact@v4
         with:
           name: allure-results
-          path: target/allure-results
+          patch: target/allure-results
+
+      - name: Upload Allure Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-report
+          path: target/allure-report
