@@ -38,10 +38,12 @@ public class EmployeeBusinessTests {
         apiEmployeeHelper = new ApiEmployeeHelper();
         Properties properties = envHelper.getConfProperties();
 
+        RestAssured.reset();
         RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
         RestAssured.baseURI = properties.getProperty("api.url");
         String token = apiAuthHelper.AuthGetToken(properties.getProperty("api.AdminUser"), properties.getProperty("api.AdminPassword"));
         RestAssured.requestSpecification = new RequestSpecBuilder().build().header(properties.getProperty("api.AuthHeader"), token);
+
 
     }
 
