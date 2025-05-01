@@ -43,24 +43,22 @@ jobs:
           wget -qO - https://dl.bintray.com/qameta/gpg.key | gpg --dearmor -o /usr/share/keyrings/allure.gpg
           echo "deb [signed-by=/usr/share/keyrings/allure.gpg] https://dl.bintray.com/qameta/deb all main" | tee /etc/apt/sources.list.d/allure.list
           apt update
-          apt install -y allure  
-
-
+          apt install -y allure
 
       - name: Generate Report
         run: |
           mkdir -p allure-report  
-          allure generate --clean allure-results -o allure-report
+          allure generate --clean target/allure-results -o allure-report
 
       - name: Upload Allure Report as artifact
-        uses: actions/upload-pages-artifact@v4
+        uses: actions/upload-artifact@v4
         with:
-          path: './allure-report'
+          name: allure-report
+          path: allure-report
 
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-
 #      - name: Generate Allure results
 #        run: mvn allure:report
 #
