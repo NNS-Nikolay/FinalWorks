@@ -40,10 +40,10 @@ jobs:
 
       - name: Install Allure CLI
         run: |
-          wget -qO - https://dl.bintray.com/qameta/gpg.key | gpg --dearmor -o /usr/share/keyrings/allure.gpg
-          echo "deb [signed-by=/usr/share/keyrings/allure.gpg] https://dl.bintray.com/qameta/deb all main" | tee /etc/apt/sources.list.d/allure.list
-          apt update
-          apt install -y allure
+          ALLURE_VERSION=2.13.9
+          wget -q "https://github.com/allure-framework/allure2/releases/download/${ALLURE_VERSION}/allure-${ALLURE_VERSION}-zip.zip"
+          unzip -q "allure-${ALLURE_VERSION}-zip.zip" -d /opt/
+          ln -s /opt/allure-${ALLURE_VERSION}/bin/allure /usr/local/bin/allure
 
       - name: Generate Report
         run: |
