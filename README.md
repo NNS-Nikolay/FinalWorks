@@ -1,6 +1,6 @@
 **Запуск тестов из программы IntelliJ IDEA**
 	
-- Навести фокус на папку с тестами, \FinalWorks\src\test\java\tests,
+- Навести фокус на папку с тестами, [\FinalWorks\src\test\java\tests](https://github.com/NNS-Nikolay/FinalWorks/tree/master/src/test/java/tests),
 нажать ПКМ и выбрать Run 'Tests in 'tests''
 - Тесты запускаются и начнется прохождение тестов (запуск браузера отключен)
 - Результаты прохождения тестов будут находиться в папке allure-results (папка в корне проекта)
