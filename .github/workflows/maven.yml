@@ -50,8 +50,8 @@ jobs:
       - name: Проверка наличия каталога allure-report
         run: ls -la target/allure-report || echo "Файл или директория allure-report не найдены"
 
-      - name: Запуск тестов с логированием
-        run: mvn clean test | tee test-output.log
+      - name: Запуск тестов
+        run: mvn clean test
 
       - name: Генерация репорта
         run: |
