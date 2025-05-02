@@ -12,13 +12,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    services:
-      selenium:
-        image: selenium/standalone-chrome
-        ports:
-          - 4444:4444
-        options: >-
-          --shm-size=2g
+
 
     steps:
       - name: Checkout code
@@ -31,32 +25,34 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      - name: Install dependencies
+      - name: Установить зависимостей
         run: mvn install
 
-      - name: Run tests
-        run: mvn clean test
-
-
-
-      - name: Install Allure CLI
+      - name: Установка Allure CLI
         run: |
-          ALLURE_VERSION=2.34.0
-          wget -q "https://github.com/allure-framework/allure2/releases/download/2.34.0/allure-2.34.0.zip"
-          unzip -q "allure-${ALLURE_VERSION}-zip.zip" -d /opt/
-          ln -s /opt/allure-${ALLURE_VERSION}/bin/allure /usr/local/bin/allure
-#
-#      - name: Generate Report
-#        run: |
-#          mkdir -p allure-report
-#          allure generate --clean target/allure-results -o allure-report
-#
-#      - name: Upload Allure Report as artifact
-#        uses: actions/upload-artifact@v3
-#        with:
-#          name: allure-report
-#          path: allure-report
-#
-#      - name: Deploy to GitHub Pages
-#        id: deployment
-#        uses: actions/deploy-pages@v4
+          ALLURE_VERSION=2.33.0
+          wget "https://github.com/allure-framework/allure2/releases/download/2.33.0/allure-2.33.0.zip"
+          unzip "allure-2.33.0.zip" -d /opt/
+          ln -s /opt/allure-2.33.0/bin/allure /usr/local/bin/allure
+
+      - name: Проверка установленной версии Allure
+        run: allure --version
+
+      - name: Создание директории allure-results
+        run: mkdir -p target/allure-results
+
+      - name: Проверка наличия каталога allure-results
+        run: ls -la target/allure-results || echo "Файл или директория allure-results не найдены"
+
+      - name: Создание директории allure-report
+        run: mkdir -p target/allure-report
+
+      - name: Проверка наличия каталога allure-report
+        run: ls -la target/allure-report || echo "Файл или директория allure-report не найдены"
+
+      - name: Запуск тестов с логированием
+        run: mvn clean test | tee test-output.log
+
+      - name: Генерация репорта
+        run: |
+          allure generate --clean target/allure-results -o allure-report
