@@ -4,7 +4,7 @@ import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.SelenideElement;
 import com.codeborne.selenide.junit5.BrowserPerTestStrategyExtension;
 import com.codeborne.selenide.logevents.SelenideLogger;
-import helpers.TestHelper;
+import helpers.UITestHelper;
 import helpers.UILoginHelper;
 import configs.PropertiesHelper;
 import io.qameta.allure.Description;
@@ -31,14 +31,14 @@ public class saucedemoTest {
     private static LoginPage loginPage;
     public static PropertiesHelper propertiesHelper;
     public static UILoginHelper uiLoginHelper;
-    public static TestHelper testHelper;
+    public static UITestHelper UITestHelper;
 
     @BeforeAll
     public static void setUp() throws IOException {
 
         propertiesHelper = new PropertiesHelper();
         uiLoginHelper = new UILoginHelper();
-        testHelper = new TestHelper();
+        UITestHelper = new UITestHelper();
         loginPage = new LoginPage();
 
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
@@ -93,7 +93,7 @@ public class saucedemoTest {
 
         InventoryPage inventoryPage = new InventoryPage();
         List<Integer> listItemIndex = Arrays.asList(0, 2, 4);
-        String orderSum = inventoryPage.listItemToCart(listItemIndex, testHelper);
+        String orderSum = inventoryPage.listItemToCart(listItemIndex, UITestHelper);
         String orderCount = Integer.toString(listItemIndex.size());
         SelenideElement cartCounter = inventoryPage.getCartCounter();
         step("Проверка количества заказанных товаров ", () -> {
@@ -108,7 +108,7 @@ public class saucedemoTest {
         cartPage.goToCheckoutForm();
 
         CheckoutStepOnePage checkoutStepOnePage = new CheckoutStepOnePage();
-        checkoutStepOnePage.inputBuyerData(testHelper);
+        checkoutStepOnePage.inputBuyerData(UITestHelper);
 
         CheckoutStepTwoPage checkoutStepTwoPage = new CheckoutStepTwoPage();
         checkoutStepTwoPage.checkSumOrder(propertiesHelper, orderSum);

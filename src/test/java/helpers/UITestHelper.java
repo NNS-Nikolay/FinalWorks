@@ -5,7 +5,7 @@ import org.instancio.Instancio;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 
-public class TestHelper {
+public class UITestHelper {
 
     public BigDecimal getPrice(String itemPriceString){
 

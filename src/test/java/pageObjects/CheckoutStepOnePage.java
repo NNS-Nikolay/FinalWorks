@@ -3,7 +3,7 @@ package pageObjects;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import entities.Saucedemo.Buyer;
-import helpers.TestHelper;
+import helpers.UITestHelper;
 import io.qameta.allure.Step;
 import java.time.Duration;
 import static com.codeborne.selenide.Selenide.$;
@@ -17,9 +17,9 @@ public class CheckoutStepOnePage {
     public final SelenideElement errorHeader = $("h3[data-test='error']");
 
     @Step("Ввод данных покупателя")
-    public void inputBuyerData(TestHelper testHelper){
+    public void inputBuyerData(UITestHelper UITestHelper){
 
-        Buyer buyerData = testHelper.getBuyer();
+        Buyer buyerData = UITestHelper.getBuyer();
 
         firstNameField.setValue(buyerData.firstName());
         lastNameField.setValue(buyerData.lastName());

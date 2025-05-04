@@ -3,7 +3,7 @@ package pageObjects;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import components.InventoryItemComponent;
-import helpers.TestHelper;
+import helpers.UITestHelper;
 import io.qameta.allure.Step;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -25,19 +25,19 @@ public class InventoryPage {
     }
 
     @Step("Помещение списка товаров в корзину")
-    public String listItemToCart(List<Integer> itemsToCart, TestHelper testHelper){
+    public String listItemToCart(List<Integer> itemsToCart, UITestHelper UITestHelper){
 
         BigDecimal totalSum = new BigDecimal(0);
         List<InventoryItemComponent> inventoryComponents = getInventoryItemComponents();
 
         for (Integer itemIndex : itemsToCart) {
             InventoryItemComponent inventoryComponent = inventoryComponents.get(itemIndex);
-            BigDecimal itemPrice = testHelper.getPrice(inventoryComponent.getPrice().getText());
+            BigDecimal itemPrice = UITestHelper.getPrice(inventoryComponent.getPrice().getText());
             inventoryComponent.findButton().click();
             totalSum = totalSum.add(itemPrice);
         }
 
-        return testHelper.getFormattedSum(totalSum, "#.##");
+        return UITestHelper.getFormattedSum(totalSum, "#.##");
     }
 
     @Step("Получение счетчика корзины")
